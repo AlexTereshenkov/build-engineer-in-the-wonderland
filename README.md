@@ -6,7 +6,7 @@ Why having a sophisticated build system in the first place? Do I need it if I bu
 
 The answer to the questions above is "it really depends". It depends on the complexity of your codebase, on how much deviation is there from the industry standards, on the number of engineers you can allocate to the adoption and maintenance of a build system. Things like that.
 
-There are lots of reasons why adopting tooling of Pants, Bazel, or Buck may be great and people are likely to mention reproducibility, better isolation for tests (sandboxing) leading to higher testing quality, and build speed (thanks to remote caching and remote execution). What's not being mentioned often enough is the **surface area** for the interaction with the build process. Imagine having your project pipeline being just `pants fmt lint check test package ::`  or `bazel build //... && bazel test //...` . This means no matter what kind of things you do in the repo, what kind of tools you employ and however you build the code, you'll always have a consistent way to invoke a build.
+There are lots of reasons why adopting tooling of Pants, Bazel, or Buck may be great and people are likely to mention reproducibility, better isolation for tests (sandboxing) leading to higher testing quality, and build speed (thanks to remote caching and remote execution). What's not being mentioned often enough is the **surface area** for the interaction with the build process. Imagine having your project pipeline being just `pants fmt lint check test package ::`  or `bazel build //... && bazel test //...`. This means no matter what kind of things you do in the repo, what kind of tools you employ and however you build the code, you'll always have a consistent way to invoke a build.
 
 Let me explain.
 
