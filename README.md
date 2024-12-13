@@ -210,9 +210,16 @@ Depending on how caching of build artifacts is set up and whether you depend on 
 
 It's often useful to be able to confirm the build passes some quick sanity checks before submitting a build to CI. For instance, it may be inefficient to trigger a build in a CI agent just to find out some code is not formatted or a linter discovers an unused variable. Starting a CI build is not free and with a limited number of agents in a pool (depending on the computing resources at your disposal), this may result in longer waiting time for other builds. 
 
-These kind of checks are often done as part of [pre-commit](https://pre-commit.com/) hooks and are trivial to set up; make sure to make pre-commit checks fast and relevant to most use cases allowing developers to choose what checks make sense for their workflows (e.g. a data scientist is unlikely to benefit from a JavaScript linter check). Using pre-commit hooks can also help to prevent any secrets and sensitive data to be pushed to a shared remote repository.
+These kind of checks are often done as part of [pre-commit](https://pre-commit.com/) hooks and are trivial to set up; make sure to make pre-commit checks fast and relevant to most use cases allowing developers to choose what checks make sense for their workflows (e.g. a data scientist is unlikely to benefit from a JavaScript linter check). Using pre-commit hooks can also help to prevent any secrets and sensitive data to be pushed to a shared remote repository. In addition to the language specific checks, build metadata can be also be controlled — visit the Chapter 4.3 Code review which highlights some of the steps that can be taken to keep the codebase build metadata correct.
 
-In addition to the language specific checks, build metadata can be also be controlled — visit the Chapter 4.3 Code review which highlights some of the steps that can be taken to keep the codebase build metadata correct. Once all the local sanity checks pass and, optionally, tests and any other relevant build operations, it's time to submit a CI build.
+It is also very helpful to collect all invocations of the build tool, both in local environments (where product engineers code) and in CI agents. Enabling telemetry in CI builds is straightforward as you control the runtime environment. With the local environment, you'd need to provide for the main build tool some kind of thin wrapper which would have telemetry submission features built in. You could use an existing solution similar to [Sentry](https://sentry.io/) or [Fluentd](https://www.fluentd.org/), but this could also be a minimalistic Bash script that would submit some payload to a remote telemetry server before and/or after the primary build tool invocation. You would typically be interested in knowing:
+* the runtime environment (hardware architecture, operating system name and version)
+* the command and its command line arguments as well as duration of the command execution
+* build related statistics such as local/remote cache hit rates and metadata on intermediate build steps (should you collect them)
+
+You would not normally want to rely on engineers telling you about local build failures that are caused by things that engineering productivity / build systems team controls such as build system misconfiguration or unexpected drop in support of certain command line flags. Any errors that occur during a build tool invocation should be submitted to a remote telemetry server, optionally, with alerting set up to be able to react on issues proactively.
+
+Once all the local sanity checks pass and, optionally, tests and any other relevant build operations, it's time to submit a CI build.
 
 ## Chapter 4.1 — CI
 
