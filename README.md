@@ -2,6 +2,8 @@
 
 ## Preface
 
+> The source code of this book is available on [GitHub](https://github.com/AlexTereshenkov/build-engineer-in-the-wonderland).
+
 Why having a sophisticated build system in the first place? Do I need it if I build my product in a single language? What about the IDE support? Is having something like Bazel really worth it? If you are asking these questions, that's great — you are in the right place!
 
 The answer to the questions above is "it really depends". It depends on the complexity of your codebase, on how much deviation is there from the industry standards, on the number of engineers you can allocate to the adoption and maintenance of a build system. Things like that.
