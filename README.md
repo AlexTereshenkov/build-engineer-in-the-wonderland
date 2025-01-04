@@ -346,6 +346,10 @@ However, it may also make sense to stay pragmatic and accept a certain level of 
 
 ## Chapter 6 — Security
 
+### Build cache
+
+Depending on who is allowed to write to a remote build cache, it may make sense to ensure that build cache entries are signed (i.e. one can verify that a cache item has been written by a legitimate client). This is to let any consumer of the cache to verify the integrity of the downloaded resources. For instance, if an item has been written to the cache by a build system, the signature available in the metadata could be double-checked by the build system itself when it's reading the cache it has presumably written earlier. You would expect that the cache reader should be able to compute the hash sum of the relevant cache objects and ignore the cache items if they don't match the expected hash value. In an environment with harder constraints, it may be useful to consider encrypting the cache entries before storing them so that they could be consumed only by authorized clients who would have the necessary keys required to decrypt the data.
+
 ### Deployments
 
 In addition to security principles that are universal such as [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) and some best practices mentioned in earlier chapters (creating lockfile with transitive dependencies, limiting access to public package repositories in CI agents, and making sure to keep external dependencies in internal binary repository), you may also be interested in how to ensure that only the code that has been properly reviewed would be accepted by the deployment system.
