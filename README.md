@@ -221,7 +221,7 @@ It is also very helpful to collect all invocations of the build tool, both in lo
 * the command and its command line arguments as well as duration of the command execution
 * build related statistics such as local/remote cache hit rates and metadata on intermediate build steps (should you collect them)
 
-You would not normally want to rely on engineers telling you about local build failures that are caused by things that engineering productivity / build systems team controls such as build system misconfiguration or unexpected drop in support of certain command line flags. Any errors that occur during a build tool invocation should be submitted to a remote telemetry server, optionally, with alerting set up to be able to react on issues proactively.
+You would not normally want to rely on engineers telling you about local build failures that are caused by things that engineering productivity / build systems team controls such as build system misconfiguration or unexpected drop in support of certain command line flags. Any errors that occur during a build tool invocation should be submitted to a remote telemetry server, optionally, with alerting set up to be able to react on issues proactively. Keep in mind that some errors produced by the build system may make little sense to a casual user, so it might be nice to have a custom message appearing right after the built-in one produced by the tool. This message could contain some specific details that apply only to your organization and, optionally, how to fix the error; it could also be a link to an internal wiki page where users can navigate to learn more.
 
 Once all the local sanity checks pass and, optionally, tests and any other relevant build operations, it's time to submit a CI build.
 
